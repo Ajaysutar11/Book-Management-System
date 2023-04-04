@@ -1,0 +1,45 @@
+	create database stud_books;
+
+	
+	use stud_books;
+
+
+	create table borrow(
+	id  int primary key auto_increment,
+	S_Roll int,
+	B_id varchar(150),
+	date timestamp default CURRENT_TIMESTAMP,
+	due varchar(12));
+
+
+	create table b_return(
+	id  int primary key auto_increment,
+	St_Roll int,
+	Bo_id varchar(150),
+	date timestamp default CURRENT_TIMESTAMP,
+	charges int);
+
+
+	create table students(
+	id int primary key auto_increment,
+	Roll_no int,
+	Name char(50),
+	Department char(100),
+	contact varchar(13),
+	gender char(7),
+	date timestamp default CURRENT_TIMESTAMP);
+
+
+	create table books(
+	id int primary key auto_increment,
+	Book_id varchar(150),
+	Title varchar(150),
+	Edition varchar(150),
+	Author varchar(50),
+	Num_of_copies int);	
+	
+
+	create table user(
+	id int primary key auto_increment,
+	username varchar(45),
+	password varchar(45));

@@ -1,0 +1,53 @@
+
+{% extends "master_template.html" %}
+{%block title%}
+  Welcome To Library
+{%endblock%}
+
+{% block body%}
+  <h2>Welcome,</h2>
+   <h2>
+    <div class="topnav">
+      <!-- <input type="text" placeholder="Search.."> -->
+      <!-- <li><a href="#"><b>Search</b><input type="s<label for="search" class="fa fa-fw fa-home"></a></li> -->
+        <div class="row">
+          <div class="col-4">
+           <form action="/api" method="post" autocomplete="off"> 
+           <div class="row">
+            <div class="col-6">
+            <input type="text" class="form-control" name="tag" id="tag"  placeholder="Search Student"/> 
+            </div>
+            <div class="col-6" align = "left">
+            <input type="submit" value="Search" class="form-control btn btn-primary " name="S_Name"> 
+            </div>
+           </form> 
+           </div>
+          </div>
+         </div> 
+    </div>
+  </h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Student Roll Number</th>
+        <th>Book Id</th>
+        <th>Date</th>
+        <!-- <th>Voucher No</th> -->
+        <th>Due Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for stud in students%}
+      <tr>
+        <td> {{stud.id}}</td>
+        <td>{{stud.S_Roll}}</td>
+        <td>{{stud.B_id}}</td>
+        <td>{{stud.Date}}</td>
+        <!-- <td>{{stud.token_no}}</td> -->
+        <td>{{stud.due}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+  {%endblock%}

@@ -1,0 +1,10 @@
+Flask==2.1.0
+numpy
+scikit-learn
+pandas
+Flask-MySQL==1.4.0
+flask_mysqldb
+pymysql
+mysql-connector-python
+flask_sqlalchemy
+SQLAlchemy==1.4

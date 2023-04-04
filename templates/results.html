@@ -1,0 +1,26 @@
+{% if results %}
+    <h2>Search results:</h2>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Student Name</th>
+            <th>Book Title</th>
+            <th>Date</th>
+            <th>Voucher No</th>
+            <th>Due Date</th>
+        </tr>
+          {%for stud in students%}
+          <tr>
+            <td> {{stud.id}}</td>
+            <td>{{stud.S_Name}}</td>
+            <td>{{stud.B_title}}</td>
+            <td>{{stud.Date}}</td>
+            <td>{{stud.token_no}}</td>
+            <td>{{stud.due}}</td>
+          </tr>
+    
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No results found.</p>
+{% endif %}

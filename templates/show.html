@@ -1,0 +1,32 @@
+{% extends "master_template.html" %}
+{%block title%}
+  Search book
+{%endblock%}
+
+{% block body%}
+  <form action="/show" method="post"></form>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Student Name</th>
+        <th>Book Title</th>
+        <th>Date</th>
+        <th>Voucher No</th>
+        <th>Due Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for stud in students%}
+      <tr>
+        <td> {{stud.id}}</td>
+        <td>{{stud.S_Name}}</td>
+        <td>{{stud.B_title}}</td>
+        <td>{{stud.Date}}</td>
+        <td>{{stud.token_no}}</td>
+        <td>{{stud.due}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+  {%endblock%}
