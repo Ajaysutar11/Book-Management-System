@@ -11,7 +11,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:0000@localhost:330
 app.config['SECRET_KEY'] = "random string"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['SQLALCHEMY_ECHO'] = True
-# db.init_app(app)
 
 db = SQLAlchemy(app)
 
@@ -198,19 +197,6 @@ def deletestudent(id):
     db.engine.execute(f"delete from students where students.id={id}")
     # return render_template('book.html')
     return redirect(url_for("insert"))
-
-
-
-
-# @app.route("/search", methods=['GET','POST'])
-# def search():
-#     if request.method == 'POST':
-#         Name = request.form.get('S_Name')
-#         bio = Borrow.query.filter_by(S_Name = Name).first()
-#         return render_template('intro.html',bio=bio)
-#     students = Borrow.query.all()
-#     return render_template("search.html",students = students)
-
 
 @app.route("/api", methods=['GET','POST'])
 def api():
