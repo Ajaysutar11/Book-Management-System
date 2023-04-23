@@ -49,11 +49,12 @@
         <th>Edition</th>
         <th>Author</th>
         <th>Num_of_copies</th>
+        <th>Edit</th>
         <th>Delete</th>
       </tr>
     </thead>
     <tbody>
-      {%for stud in cla%}
+      {%for stud in cla %}
       <tr>
         <td> {{stud.id}}</td>
         <td>{{stud.Book_id}}</td>
@@ -62,6 +63,7 @@
         <td>{{stud.Author}}</td>
         <td>{{stud.Num_of_copies}}</td>
 
+        <td><a href="{{url_for('update_book',id=stud.id)}}"><button onclick="return confirm('are you sure')">Edit</button></a></td>
         <td><a href="/deletebook/{{stud.id}}"> <button onclick="return confirm('are you sure to delete')">Delete</button></a></td>
       </tr>
 

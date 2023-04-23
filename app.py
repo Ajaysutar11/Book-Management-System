@@ -186,6 +186,26 @@ def rtrn():
     b = db.session.query(Borrow.B_id).all()
     return render_template("return.html", c=c, b=b, students=students)
 
+@app.route('/update_book/<int:id>', methods=['GET', 'POST'])
+def update_book(id):
+    book = Book.query.get_or_404(id)
+    if request.method == 'POST':
+        book.Book_id = request.form["bi"]
+        book.Title = request.form["bt"]
+        book.Edition = request.form["be"]
+        book.Author = request.form["ba"]
+        book.Num_of_copies = request.form["bc"]
+        try:
+            db.session.commit()
+            return redirect("/book")
+        
+        except:
+            return "there was a problem"
+        
+    else:
+        return render_template('update_book.html', book = book)
+    
+
 @app.route("/deletebook/<string:id>",methods = ['GET','POST'])
 def deletebook(id):
     db.engine.execute(f"delete from books where books.id={id}")
@@ -205,7 +225,7 @@ def api():
         search_value = form['tag']
         print(search_value)
         search = "%{0}%".format(search_value)
-        results = Borrow.query.filter(Borrow.S_Roll.like(search)).all()
+        results = Borrow.query.filter((Borrow.S_Roll.like(search)) | Borrow.B_id.like(search)).all()
         return render_template('search.html',students = results)
     
     return render_template('results.html', results=results)
