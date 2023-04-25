@@ -103,11 +103,6 @@ def cancel():
     return render_template('login.html')
 
 
-@app.route("/show", methods=['GET'])
-def show():
-    students = Borrow.query.all()
-    return render_template("intro.html", students=students)
-
 @app.route("/insert", methods=['GET', 'POST'])
 def insert():
     if request.method == "POST":
@@ -206,6 +201,25 @@ def update_book(id):
         return render_template('update_book.html', book = book)
     
 
+@app.route('/edit_book/<int:id>', methods=['GET', 'POST'])
+def edit_book(id):
+    stud = Student.query.get_or_404(id)
+    if request.method == 'POST':
+        stud.Roll_no = request.form["roll_no"]
+        stud.Name = request.form["name"]
+        stud.Department = request.form["dpt"]
+        stud.contact = request.form["cnt"]
+        stud.gender = request.form["gender"]
+        try:
+            db.session.commit()
+            return redirect("/insert")
+        
+        except:
+            return "there was a problem"
+        
+    else:
+        return render_template('edit.html', stud = stud)
+
 @app.route("/deletebook/<string:id>",methods = ['GET','POST'])
 def deletebook(id):
     db.engine.execute(f"delete from books where books.id={id}")
@@ -218,6 +232,16 @@ def deletestudent(id):
     # return render_template('book.html')
     return redirect(url_for("insert"))
 
+@app.route("/show", methods=['GET'])
+def show():
+    # students = Borrow.query.all()
+    return render_template("intro.html")
+
+# @app.route("/show", methods=['GET'])
+# def show():
+#     students = Borrow.query.all()
+#     return render_template("intro.html", students=students)
+
 @app.route("/api", methods=['GET','POST'])
 def api():
     if request.method == 'POST':
@@ -227,8 +251,8 @@ def api():
         search = "%{0}%".format(search_value)
         results = Borrow.query.filter((Borrow.S_Roll.like(search)) | Borrow.B_id.like(search)).all()
         return render_template('search.html',students = results)
-    
-    return render_template('results.html', results=results)
+    # students = Borrow.query.all()
+    # return render_template('results.html',students = students)
 
 
 if __name__ == "__main__":

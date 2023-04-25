@@ -5,7 +5,7 @@
   {%block body%}
   <form class="form-horizontal" action="/insert" method="post" >
     <div class="form-group">
-      <div class="form-group">
+      <div class="form-group" style="margin-left: 1px; margin-right: 1px;">
         <label class="control-label col-sm-2" for="email">Roll Number:</label>
         <div class="col-sm-10">
           <input class="form-control" id="roll_no" placeholder="Enter Roll Number" name="roll_no" required>
@@ -67,6 +67,7 @@
         <td>{{stud.gender}}</td>
         <td>{{stud.date}}</td>
 
+        <td><a href="{{url_for('edit_book',id=stud.id)}}"><button onclick="return confirm('are you sure')">Edit</button></a></td>
         <td><a href="/deletestudent/{{stud.id}}"> <button onclick="return confirm('are you sure to delete')">Delete</button></a></td>
       </tr>
       {%endfor%}

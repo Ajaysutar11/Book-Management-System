@@ -20,12 +20,16 @@
         <a class="navbar-brand" href="{{url_for('show')}}"><b>Books Management System</b></a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="{{url_for('show')}}"><b>Home</b></a></li>
         <li><a href="{{url_for('insert')}}"><b>Insert Students</b></a></li>
         <li><a href="{{url_for('book')}}"><b>Books Detail</b></a></li>
         <li><a href="{{url_for('borrow')}}"><b>Borrow Detail</b></a></li>
         <li><a href="{{url_for('rtrn')}}"><b>Return Detail</b></a></li>
-        <li><a href="{{url_for('logout')}}" style="margin-left: 400px;"><b>Logout</b></a></li>
+        <!-- <li><a href="{{url_for('api')}}"><b>Search</b></a></li> -->
+        <form action="/api" method = "post" style="margin-left: 490px; margin-top: 15px;">
+          <input type="text" placeholder="Search.." name="tag" required>
+          <button type="submit">Search</button>
+        </form>
+        <li><a href="{{url_for('logout')}}" style="margin-left: 1000px;margin-top: -50px;"><b>Logout</b></a></li>
           </div>
         </div>
       </ul>

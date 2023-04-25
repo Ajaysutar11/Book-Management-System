@@ -1,0 +1,47 @@
+{% extends "master_template.html" %}
+    {%block title%}
+    This is the Main Index Page
+    {%endblock%}
+  {%block body%}
+  <form class="form-horizontal" action="/edit_book/{{ stud.id }}" method="post" >
+    <div class="form-group">
+      <div class="form-group" style="margin-left: 1px; margin-right: 1px;">
+        <label class="control-label col-sm-2" for="email">Roll Number:</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="roll_no" placeholder="Enter Roll Number" value="{{ stud.Roll_no }}" name="roll_no" required>
+        </div>
+      </div>
+      <label class="control-label col-sm-2" for="email">Name:</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="name" placeholder="Enter Student Name" value="{{ stud.Name }}" name="name" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Department:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="email" placeholder="Enter Department" value="{{ stud.Department }}" name="dpt" min="0">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Contact:</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="email" placeholder="Enter Number" value="{{ stud.contact }}" name="cnt" min="0">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Gender:</label>
+      <div class="col-sm-10">
+        <select class="form-control" id="program" value = "{{ stud.gender }}" name="gender">
+          <option value="Male"> Male </option>
+          <option value="Female"> Female </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Update</button>
+      </div>
+    </div>
+  </form>
+  {%endblock%}
