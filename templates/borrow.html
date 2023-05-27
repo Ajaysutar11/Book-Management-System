@@ -7,42 +7,50 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd">Student Roll Number:</label>
       <div class="col-sm-10">
-        <input type="number" class="form-control" id="program" placeholder="Enter Student Roll Number" name="sm">
-        <!-- <select class="form-control" id="program" name="sm">
-          {%for a in c%}
-          <option value="{{a.Name}}"> {{a.Name}} </option>
-          {%endfor%}
-        </select> -->
+        <input type="number" class="form-control" id="program" placeholder="Enter Student Roll Number" name="sm" required>
       </div>
     </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Book Id:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="program" placeholder="Enter Book Id" name="bt">
-          <!-- <select class="form-control" id="program" name="bt">
-            {%for h in b%}
-            <option value="{{h.Title}}"> {{h.Title}} </option>
-            {%endfor%}
-          </select> -->
+          <input type="text" class="form-control" id="program" placeholder="Enter Book Id" name="bt" required>
         </div>
       </div>
-      <!-- <div class="form-group">
-        <label class="control-label col-sm-2" for="email">Voucher No:</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="email" placeholder="Enter Recipt Serial number" name="vn">
-        </div>
-      </div> -->
       <div class="form-group">
         <label class="control-label col-sm-2" for="email">Due Date:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="email" placeholder="DD-MM-YYYY" name="date">
+          <input type="text" class="form-control" id="email" placeholder="DD-MM-YYYY" name="date" required>
         </div>
       </div>
-
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-default">Submit</button>
       </div>
     </div>
   </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Student Roll Number</th>
+        <th>Book Id</th>
+        <th>Due Date</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for borrow in borrows%}
+      <tr>
+        <td> {{borrow.id}}</td>
+        <td>{{borrow.S_Roll}}</td>
+        <td>{{borrow.B_id}}</td>
+        <td>{{borrow.Date}}</td>
+        <td><a href="{{url_for('update_borrow',id=borrow.id)}}"><button onclick="return confirm('are you sure')">Edit</button></a></td>
+        <td><a href="/deleteborrow/{{borrow.id}}"> <button onclick="return confirm('are you sure to delete')">Delete</button></a></td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
 {%endblock%}

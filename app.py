@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,redirect,url_for,session
+from flask import Flask, render_template, request,redirect,url_for
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask_sqlalchemy import SQLAlchemy
@@ -117,6 +117,7 @@ def insert():
         stud = Student(Name = name, Department=Dpt, contact=Cnt, gender=gend,Roll_no = roll_no)
         db.session.add(stud)
         db.session.commit()
+        return redirect('/insert')
 
     students = Student.query.all()
     return render_template("insert_new_student.html", students=students)
@@ -135,6 +136,7 @@ def book():
         stud = Book(Book_id = book_id ,Title = title, Edition=edition, Author=author,Num_of_copies = num_of_copies)
         db.session.add(stud)
         db.session.commit()
+        return redirect("/book")
 
     cla = Book.query.all()
     return render_template("book.html", cla=cla)
@@ -148,17 +150,15 @@ def borrow():
         VN = request.form.get("vn")
         DA = request.form.get("date")
 
-        # Creat new record
         stud = Borrow(S_Roll = name, B_id=BT, due=DA)
         db.session.add(stud)
         db.session.commit()
+        return redirect("/borrow_book")
 
-        students = Borrow.query.all()
-        return render_template("intro.html", students=students)
-
+    students = Borrow.query.all()
     c = db.session.query(Student.Name).all()
     b = db.session.query(Book.Title).all()
-    return render_template("borrow.html", c=c, b=b)
+    return render_template("borrow.html", c=c, b=b,borrows = students)
 
 
 @app.route("/return_book", methods=['GET', 'POST'])
@@ -168,13 +168,13 @@ def rtrn():
         name = request.form.get("sm")
         BT = request.form.get("bt")
         DT = request.form.get("dt")
-        # VN = request.form.get("vn")
         DA = request.form.get("ch")
 
         # Creat new record
         stud = Rtrn(St_Roll = name, Bo_id=BT, Date=DT,charges=DA)
         db.session.add(stud)
         db.session.commit()
+        return redirect('/return_book')
 
     students = Rtrn.query.all()
     c = db.session.query(Borrow.S_Roll).all()
@@ -201,8 +201,8 @@ def update_book(id):
         return render_template('update_book.html', book = book)
     
 
-@app.route('/edit_book/<int:id>', methods=['GET', 'POST'])
-def edit_book(id):
+@app.route('/update_student/<int:id>', methods=['GET', 'POST'])
+def update_student(id):
     stud = Student.query.get_or_404(id)
     if request.method == 'POST':
         stud.Roll_no = request.form["roll_no"]
@@ -218,7 +218,24 @@ def edit_book(id):
             return "there was a problem"
         
     else:
-        return render_template('edit.html', stud = stud)
+        return render_template('update_student.html', stud = stud)
+    
+@app.route('/update_borrow/<int:id>', methods=['GET', 'POST'])
+def update_borrow(id):
+    borrow = Borrow.query.get_or_404(id)
+    if request.method == 'POST':
+        borrow.S_Roll = request.form["bi"]
+        borrow.B_id = request.form["bt"]
+        borrow.due = request.form["date"]
+        try:
+            db.session.commit()
+            return redirect("/borrow_book")
+        
+        except:
+            return "there was a problem"
+        
+    else:
+        return render_template('update_borrow.html', borrow = borrow)
 
 @app.route("/deletebook/<string:id>",methods = ['GET','POST'])
 def deletebook(id):
@@ -231,6 +248,19 @@ def deletestudent(id):
     db.engine.execute(f"delete from students where students.id={id}")
     # return render_template('book.html')
     return redirect(url_for("insert"))
+
+@app.route("/deleteborrow/<string:id>",methods = ['GET','POST'])
+def deleteborrow(id):
+    db.engine.execute(f"delete from borrow where borrow.id={id}")
+    # return render_template('book.html')
+    return redirect(url_for("borrow"))
+
+
+@app.route("/deletereturn/<string:id>",methods = ['GET','POST'])
+def deletereturn(id):
+    db.engine.execute(f"delete from b_return where b_return.id={id}")
+    # return render_template('book.html')
+    return redirect(url_for("rtrn"))
 
 @app.route("/show", methods=['GET'])
 def show():

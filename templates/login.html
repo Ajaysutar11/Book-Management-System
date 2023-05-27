@@ -94,7 +94,7 @@ span.psw {
 <form action="/login" method="post">
   <div class="imgcontainer">
   </div>
-  <h1 style="text-align: center;">Login</h1>
+  <h1 style="text-align: center;">Admin Login</h1>
 <div class="container" style="margin-left: 400px; margin-right: 400px;">
   {% if error %}
   	<p>{{ error }}</p>
@@ -116,7 +116,6 @@ span.psw {
   </div>
 
   <div class="container" style="background-color:#f1f1f1; margin-right: 400px; margin-left: 400px;">
-    <!-- <button type="button" class="cancelbtn">Cancel</button> -->
 	<button type="button" class="cancelbtn"><a href="{{url_for('register')}}">Sign UP</a></button>
     <span class="psw">Forgot <a href="#">password?</a></span>
   </div>

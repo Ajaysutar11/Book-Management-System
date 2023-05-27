@@ -67,6 +67,7 @@
         <th>Date</th>
         <!-- <th>Voucher No</th> -->
         <th>Charges</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -78,6 +79,8 @@
         <td>{{stud.Date}}</td>
         <!-- <td>{{stud.token_no}}</td> -->
         <td>{{stud.charges}}</td>
+
+        <td><a href="/deletereturn/{{stud.id}}"> <button onclick="return confirm('are you sure to delete')">Delete</button></a></td>
       </tr>
       {%endfor%}
     </tbody>
